@@ -1,0 +1,660 @@
+Emp No.:35111404 
+
+                                                           Term Assessment 2 
+
+1) 
+
+Algorithm: 
+
+START 
+
+Initialize the switch and lights variables as 4-bit integers. 
+
+Check the status of the high beam switch: 
+
+If it is turned on, turn on the low beam switch. 
+
+If it is turned off, check the status of the low beam switch. 
+
+If it is turned on, turn off the high beam switch. 
+
+Check the status of the left indicator switch: 
+
+If it is turned on, toggle the left indicator light for 6 times. 
+
+Check the status of the right indicator switch: 
+
+If it is turned on, toggle the right indicator light for 6 times. 
+
+Repeat the steps 2 to 4 as needed. 
+
+END 
+
+Code: 
+
+#include <stdio.h> 
+
+ 
+
+// Function to turn the left indicator on and off 6 times 
+
+void turnLeftIndicator(int *lights) { 
+
+  int count = 0; // Keep track of the number of times the left indicator has been toggled 
+
+ 
+
+  // Toggle the left indicator bit 6 times 
+
+  while (count < 6) { 
+
+    *lights ^= 1; // Toggle the first bit (left indicator) 
+
+    count++; 
+
+  } 
+
+} 
+
+ 
+
+// Function to turn the right indicator on and off 6 times 
+
+void turnRightIndicator(int *lights) { 
+
+  int count = 0; // Keep track of the number of times the right indicator has been toggled 
+
+ 
+
+  // Toggle the right indicator bit 6 times 
+
+  while (count < 6) { 
+
+    *lights ^= 8; // Toggle the last bit (right indicator) 
+
+    count++; 
+
+  } 
+
+} 
+
+ 
+
+// Function to control the lights based on the switch 
+
+void contLights(int switchValue, int *lights) { 
+
+  // Check if high beam is on 
+
+  if (switchValue & 2) { 
+
+    *lights |= 4; // Set the low beam bit to 1 
+
+  } else { 
+
+    *lights &= ~4; // Set the low beam bit to 0 
+
+  } 
+
+ 
+
+  // Check if low beam is on 
+
+  if (switchValue & 4) { 
+
+    *lights &= ~2; // Set the high beam bit to 0 
+
+  } else { 
+
+    *lights |= 2; // Set the high beam bit to 1 
+
+  } 
+
+ 
+
+  // Check if the left indicator switch is turned on 
+
+  if (switchValue & 1) { 
+
+    turnLeftIndicator(lights); 
+
+  } 
+
+ 
+
+  // Check if the right indicator switch is turned on 
+
+  if (switchValue & 8) { 
+
+    turnRightIndicator(lights); 
+
+  } 
+
+} 
+
+ 
+
+int main() { 
+
+  int switchValue = 0; // The value of the switch 
+
+  int lights = 0; // The value of the lights 
+
+ 
+
+  printf("Enter the value of the switch (between 0-15): "); 
+
+  scanf("%d", &switchValue); 
+
+ 
+
+  // Control the lights based on the switch value 
+
+  contLights(switchValue, &lights); 
+
+ 
+
+  printf("Lights: %d\n", lights); 
+
+ 
+
+  return 0; 
+
+} 
+
+ 
+
+ 
+
+Output: 
+
+ 
+
+2) 
+
+Algorithm: 
+
+START 
+
+Include the required header files stdio.h and string.h. 
+
+Define two constants NUM_STUDENTS and NUM_SUBJECTS to store the number of students and subjects, respectively. 
+
+Create a structure Student that contains four fields: reg_num (integer), name (string), department (string), and marks (array of 4 floating-point numbers). 
+
+Define a function inputStudentData to input data for each student. It takes a pointer to a Student structure as an argument and prompts the user to enter data for each field of the structure. 
+
+Define a function printStudentData to print the data for each student. It takes a Student structure as an argument and prints the data for each field of the structure. 
+
+In the main function, create an array of Student structures students with NUM_STUDENTS elements. 
+
+Use a for loop to input data for each student using the inputStudentData function. 
+
+Use another for loop to print the data for each student using the printStudentData function. 
+
+Return 0 to indicate successful execution of the program. 
+
+END. 
+
+Code: 
+
+#include <stdio.h> 
+
+#include <string.h> 
+
+ 
+
+#define NUM_STUDENTS 5 // Number of students to be stored in the database 
+
+#define NUM_SUBJECTS 4 // Number of subjects for each student 
+
+ 
+
+// Define a structure to represent a student 
+
+struct Student { 
+
+    int reg_num; // Register number 
+
+    char name[50]; // Student name 
+
+    char department[20]; // Department 
+
+    float marks[NUM_SUBJECTS]; // Marks for each subject 
+
+}; 
+
+ 
+
+// Function to input student data 
+
+void inputStudentData(struct Student *s) { 
+
+    printf("Enter student's Register Number: "); 
+
+    scanf("%d", &s->reg_num); 
+
+    printf("Enter student's Name: "); 
+
+    scanf("%s", s->name); 
+
+    printf("Enter student's Department: "); 
+
+    scanf("%s", s->department); 
+
+    printf("Enter student's marks for 4 subjects (English, Maths, Science, Socials):\n"); 
+
+    for (int i = 0; i < NUM_SUBJECTS; i++) { 
+
+        printf("Subject %d: ", i + 1); 
+
+        scanf("%f", &s->marks[i]); 
+
+    } 
+
+} 
+
+ 
+
+// Function to print student data 
+
+void printStudentData(struct Student s) { 
+
+    printf("\nStudent's Register Number: %d", s.reg_num); 
+
+    printf("\nStudent's Name: %s", s.name); 
+
+    printf("\nStudent's Department: %s", s.department); 
+
+    printf("\nStudent's marks for 4 subjects (English, Maths, Science, Socials):\n"); 
+
+    for (int i = 0; i < NUM_SUBJECTS; i++) { 
+
+        printf("Subject %d: %.2f\n", i + 1, s.marks[i]); 
+
+    } 
+
+    printf("\n"); 
+
+} 
+
+ 
+
+int main() { 
+
+    // Array of structures to store student data 
+
+    struct Student students[NUM_STUDENTS]; 
+
+ 
+
+    // Input data for each student 
+
+    for (int i = 0; i < NUM_STUDENTS; i++) { 
+
+        printf("Enter data for Student %d:\n", i + 1); 
+
+        inputStudentData(&students[i]); 
+
+    } 
+
+ 
+
+    // Print data for each student 
+
+    printf("\nStudent Database:\n"); 
+
+    for (int i = 0; i < NUM_STUDENTS; i++) { 
+
+        printf("Data for Student %d:\n", i + 1); 
+
+        printStudentData(students[i]); 
+
+    } 
+
+ 
+
+    return 0; 
+
+} 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+Output: 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+3) 
+
+Algorithm: 
+
+START 
+
+Include the header files stdio.h and math.h. 
+
+Define a constant BITS_PER_BYTE to store the number of bits in a byte. 
+
+Define a function hexToBinary to convert a hexadecimal digit to its binary equivalent. This function takes a hexadecimal digit hex and an array of characters binary as arguments. 
+
+In the hexToBinary function, use a for loop to convert each bit of the hexadecimal digit to its binary equivalent and store it in the binary array. 
+
+Terminate the binary array with a null character. 
+
+Define a function hexToBinaryString to convert a hexadecimal number to its binary equivalent. This function takes a hexadecimal number hex and an array of characters binaryString as arguments. 
+
+In the hexToBinaryString function, use a for loop to convert each byte of the hexadecimal number to its binary equivalent using the hexToBinary function and concatenate the results to form the binary string. 
+
+Terminate the binaryString array with a null character. 
+
+In the main function, declare a variable hex to store the hexadecimal number entered by the user, and an array of characters binaryString to store the binary equivalent of the hexadecimal number. 
+
+Prompt the user to enter a hexadecimal number and read it into the hex variable using scanf. 
+
+Convert the hexadecimal number to its binary equivalent using the hexToBinaryString function. 
+
+Print the binary equivalent of the hexadecimal number. 
+
+Return 0 to indicate successful execution of the program. 
+
+END 
+
+ 
+
+ 
+
+ 
+
+ 
+
+Code: 
+
+#include <stdio.h> 
+
+#include <math.h> 
+
+ 
+
+#define BITS_PER_BYTE 8 
+
+ 
+
+// Function to convert a hexadecimal digit to its binary equivalent 
+
+void hexToBinary(char hex, char binary[BITS_PER_BYTE + 1]) { 
+
+    for (int i = BITS_PER_BYTE - 1; i >= 0; i--) { 
+
+        int bit = (hex >> i) & 1; 
+
+        binary[BITS_PER_BYTE - 1 - i] = bit + '0'; 
+
+    } 
+
+    binary[BITS_PER_BYTE] = '\0'; 
+
+} 
+
+ 
+
+// Function to convert a hexadecimal number to its binary equivalent 
+
+void hexToBinaryString(int hex, char binaryString[BITS_PER_BYTE * sizeof(int) + 1]) { 
+
+    char binary[BITS_PER_BYTE + 1]; 
+
+    int index = 0; 
+
+    for (int i = sizeof(int) - 1; i >= 0; i--) { 
+
+        char byte = (hex >> (i * BITS_PER_BYTE)) & 0xff; 
+
+        hexToBinary(byte, binary); 
+
+        for (int j = 0; j < BITS_PER_BYTE; j++) { 
+
+            binaryString[index++] = binary[j]; 
+
+        } 
+
+        binaryString[index++] = ' '; 
+
+    } 
+
+    binaryString[--index] = '\0'; 
+
+} 
+
+ 
+
+int main() { 
+
+    int hex; 
+
+    char binaryString[BITS_PER_BYTE * sizeof(int) + 1]; //to store the binary equivalent  
+
+ 
+
+    printf("Enter a hexadecimal number: 0x"); 
+
+    scanf("%x", &hex); 
+
+ 
+
+    hexToBinaryString(hex, binaryString); 
+
+    printf("Binary equivalent: %s\n", binaryString); 
+
+ 
+
+    return 0; 
+
+} 
+
+ 
+
+ 
+
+ 
+
+ 
+
+Output: 
+
+ 
+
+4) 
+
+Algorithm: 
+
+START 
+
+Start of function named transformArray which takes four parameters: 
+
+a. A pointer to an integer array named in_arr which represents the input one-    dimensional array. 
+
+b. An integer named rows which represents the number of rows in the two-dimensional array. 
+
+c. An integer named columns which represents the number of columns in the two-dimensional array. 
+
+d. An integer array named out_arr which represents the output two-dimensional array. 
+
+Inside the transformArray function, an integer named index is declared and initialized with 0. This integer is used to keep track of the current position in the input array. 
+
+A nested for loop is used to loop through the rows and columns of the two-dimensional array. 
+
+In the innermost loop, the value from the input array is assigned to the current position in the output array using the index variable. 
+
+The index variable is then incremented to move to the next position in the input array. 
+
+The transformArray function ends here. 
+
+In the main function, an input one-dimensional array in_arr is declared and initialized with 6 values. 
+
+Two output two-dimensional arrays out_arr1 and out_arr2 are declared. 
+
+The transformArray function is called twice, once for each output two-dimensional array with the appropriate number of rows and columns. 
+
+The first two-dimensional array is then printed using a nested for loop and the second two-dimensional array is printed in the same way. 
+
+The main function ends here and the program terminates. 
+
+END 
+
+Code: 
+
+#include <stdio.h> 
+
+ 
+
+// Function to transform a one-dimensional array into a two-dimensional array 
+
+void transformArray(int *in_arr, int rows, int columns, int out_arr[rows][columns]) { 
+
+  int index = 0; // Index to keep track of the current position in the in_arr 
+
+ 
+
+  // Loop through the rows of the two-dimensional array 
+
+  for (int i = 0; i < rows; i++) { 
+
+    // Loop through the columns of the two-dimensional array 
+
+    for (int j = 0; j < columns; j++) { 
+
+      // Assign the value from the in_arr to the current position in the out_arr 
+
+      out_arr[i][j] = in_arr[index]; 
+
+      // Increment the index to move to the next position in the in_arr 
+
+      index++; 
+
+    } 
+
+  } 
+
+} 
+
+ 
+
+int main() { 
+
+  int in_arr[6] = {1, 2, 3, 4, 5, 6}; // The input one-dimensional array 
+
+  int out_arr1[2][3]; // The first two-dimensional array 
+
+  int out_arr2[3][2]; // The second two-dimensional array 
+
+ 
+
+  // Transform the one-dimensional array into the first two-dimensional array 
+
+  transformArray(in_arr, 2, 3, out_arr1); 
+
+   
+
+  // Transform the one-dimensional array into the second two-dimensional array 
+
+  transformArray(in_arr, 3, 2, out_arr2); 
+
+ 
+
+  // Print the first two-dimensional array 
+
+  printf("Out_Arr1[2][3]={"); 
+
+  for (int i = 0; i < 2; i++) { 
+
+    printf("{"); 
+
+    for (int j = 0; j < 3; j++) { 
+
+      printf("%d", out_arr1[i][j]); 
+
+      if (j != 2) { 
+
+        printf(", "); 
+
+      } 
+
+    } 
+
+    printf("}"); 
+
+    if (i != 1) { 
+
+      printf("\n\t\t"); 
+
+    } 
+
+  } 
+
+  printf("}\n"); 
+
+ 
+
+  // Print the second two-dimensional array 
+
+  printf("Out_Arr2[3][2]={"); 
+
+  for (int i = 0; i < 3; i++) { 
+
+    printf("{"); 
+
+    for (int j = 0; j < 2; j++) { 
+
+      printf("%d", out_arr2[i][j]); 
+
+      if (j != 1) { 
+
+        printf(", "); 
+
+      } 
+
+    } 
+
+    printf("}"); 
+
+    if (i != 2) { 
+
+      printf("\n\t\t"); 
+
+    } 
+
+  } 
+
+  printf("}\n"); 
+
+ 
+
+  return 0; 
+
+} 
+
+ 
+
+ 
+
+Output: 
+
+ 
+ 
