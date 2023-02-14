@@ -1,0 +1,141 @@
+1.	 
+Write a function that takes two inputs in Hexadecimal Format and returns its Bitwise OR and Bitwise AND operations outputs
+
+#include<stdio.h>
+
+void orand(unsigned int p, unsigned int q)
+{
+    printf("The Bitwise OR operation of %x and %x is: \n%x\n",p,q,p|q);//OR result
+    printf("The Bitwise AND operation of %x and %x is: \n%x\n",p,q,p&q);//AND result
+}
+
+int main()
+{
+    unsigned int a,b;
+    
+    printf("Enter the value of 'a' (in HexaDecimal Form):\n");
+    scanf("%x",&a);
+    printf("Enter the value of 'b' (in HexaDecimal Form):\n");
+    scanf("%x",&b);
+    
+    orand(a,b);//Function which gives o/p for both or & and operations
+}
+
+OUTPUT:
+
+ 
+
+
+
+FLOWCHART:
+
+ 
+
+
+
+2.	 Write a function that takes the input in Hex and returns its output in String Format.
+
+#include<stdio.h>
+
+int main()
+{
+    unsigned int x[5];
+    char str[20];
+    printf("Enter the hexadecimal value:\n");
+    scanf("%x",&x[5]);
+    
+    for(int i=0;i<5;i++)
+    {
+        if(x[i]>='0' && x[i]<='9')
+        {
+            str[i]=x[i];
+        }
+        else if (x[i]>='A' && x[i]<='F' || x[i]>='a' && x[i]<='f')
+        {
+            str[i]=x[i];
+        }
+    }
+    
+    sprintf(str, "%x" ,x[5]);
+    printf("The corresponding hexadecimal value in string: \n\"%s\" ",str);
+}
+
+OUTPUT:
+
+ 
+
+FLOWCHART:
+
+ 
+
+
+3.	 Write a program that will convert an integer into binary
+representation and count the number of trailing zeroes.
+
+#include<stdio.h>
+#include<stdlib.h>
+void binary(int a)
+{
+    if(a > 0)
+    {
+        binary(a/2);
+        printf("%d ",a%2);  
+    }
+}
+int main()
+{
+   int n, i, t = 0, size; //'t' is a variable for trailing zeroes
+   printf("Enter an Integer:\n");
+   scanf("%d",&n);
+   printf("Binary Equivalent of %d is:\n",n);
+   binary(n);
+   size = sizeof(n) * 8;
+   for(i = 0; i < size; i++)
+   {
+      if((n >> i) & 1)
+      {
+         break;
+      }
+      t++;
+   }
+   printf("\nNumber of trailing zeroes = %d", t);
+   return 0;
+}
+OUTPUT:
+
+ 
+
+FLOWCHART:
+
+ 
+
+
+4.	 Write a C program to print the exact equivalent binary of a decimal number given by the user.
+
+#include<stdio.h>
+void binary(int a)
+{
+    if(a > 0)
+    {
+        binary(a/2);
+        printf("%d ",a%2);
+    }
+}
+int main()
+{
+   int n; 
+   printf("Enter an Integer in Decimal Form:\n");
+   scanf("%d",&n);
+   printf("Binary Equivalent of %d is:\n",n);
+   binary(n);
+}
+
+OUTPUT:
+
+
+ 
+
+
+FLOWCHART:
+
+ 
